@@ -1,11 +1,11 @@
-package com.example.Astrocash.Repository;
+package com.example.Astrocash.repository;
 
-import com.example.Astrocash.Models.Stock;
+import com.example.Astrocash.models.Stock;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface StockRepository extends MongoRepository<Stock,Long> {
+public interface StockRepository extends MongoRepository<Stock,String> {
     List<Stock> findByMercado(String Mercado);
     List<Stock> findByPais(String pais);
 }

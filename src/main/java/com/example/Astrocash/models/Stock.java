@@ -1,4 +1,4 @@
-package com.example.Astrocash.Models;
+package com.example.Astrocash.models;
 
 
 import lombok.AllArgsConstructor;
@@ -8,17 +8,24 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "cryptos")
-public class Crypto {
+@Document(collection = "stocks")
+public class Stock {
 
     @Id
-    private Long id;
-    private String simbolo; // ex: BTC, ETH
+
+    private String id;
+    private String ticker; // ex: PETR4, AAPL
     private String nome;
+    private String mercado; // ex: "B3", "NYSE"
+    private String pais; // ex: "BR", "US"
+
     private double precoAtual;
-    private double variacaoPercentual;
+    private double variacaoPercentual; // variação diária %
+
 }
