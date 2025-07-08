@@ -24,9 +24,9 @@ public class User {
 
     private String nome;
 
-    private String email;
+    private Email email;
 
-    private String senha;
+    private Senha senha;
 
     private String role = "USER";
 
