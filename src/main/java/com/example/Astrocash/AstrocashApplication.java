@@ -8,7 +8,6 @@ public class AstrocashApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AstrocashApplication.class, args);
-		System.out.println("teste -------------------------------------");
 	}
 
 

@@ -2,7 +2,9 @@ package com.example.Astrocash.models;
 
 
 
+
 import com.example.Astrocash.dto.RegisterUserDto;
+import com.example.Astrocash.dto.UpdateUsersDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -35,6 +37,24 @@ public class User {
         role = registerUserDto.role();
     }
 
+    public void UpdateDataUser (UpdateUsersDto updateUsersDto){
+        if (updateUsersDto.id()!= null){
+            id = updateUsersDto.id();
+        }
+        if (updateUsersDto.nome() != null){
+            nome = updateUsersDto.nome();
+        }
+        if (updateUsersDto.email() != null){
+            email = updateUsersDto.email();
+        }
+        if (updateUsersDto.senha()!= null){
+            senha = updateUsersDto.senha();
+        }
+        if (updateUsersDto.role() != null){
+            role = updateUsersDto.role();
+        }
+
+    }
+
 }
 
-// ANTES DE SUBIR FAZER UMA BRANCH DEV
