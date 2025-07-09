@@ -1,8 +1,7 @@
 package com.example.Astrocash.dto;
 
-import com.example.Astrocash.models.Email;
-import com.example.Astrocash.models.Senha;
-import com.example.Astrocash.models.User;
+import com.example.Astrocash.models.users.Email;
+import com.example.Astrocash.models.users.Senha;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

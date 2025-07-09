@@ -1,6 +1,6 @@
 package com.example.Astrocash.repository;
 
-import com.example.Astrocash.models.Stock;
+import com.example.Astrocash.models.stocks.Stock;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
