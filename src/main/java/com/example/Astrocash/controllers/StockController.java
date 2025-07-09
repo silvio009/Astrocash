@@ -7,6 +7,7 @@ import com.example.Astrocash.dto.stock.RegisterStockDto;
 import com.example.Astrocash.dto.stock.UpadateStockDto;
 import com.example.Astrocash.models.stocks.Stock;
 import com.example.Astrocash.repository.StockRepository;
+import com.example.Astrocash.service.StockService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,8 @@ public class StockController {
 
     @Autowired
     private StockRepository stockRepository;
+    @Autowired
+    private StockService stockService;
 
     @GetMapping
     public ResponseEntity<List<ListingStockDto>> ListingStock (Pageable pageable){
@@ -42,10 +45,13 @@ public class StockController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DetailsStockDto> registerStock(@RequestBody @Valid RegisterStockDto registerStockDto, UriComponentsBuilder uriComponentsBuilder){
-        var stock = new Stock(registerStockDto);
-        stockRepository.save(stock);
-        var uri = uriComponentsBuilder.path("/stock/{id}").buildAndExpand(stock.getId()).toUri();
+    public ResponseEntity<DetailsStockDto> registerStock(
+            @RequestBody @Valid RegisterStockDto registerStockDto,
+            UriComponentsBuilder uriComponentsBuilder) {
+
+        var stock = stockService.cadastrarStock(registerStockDto);
+        var uri = uriComponentsBuilder.path("/stocks/{id}").buildAndExpand(stock.getId()).toUri();
+
         return ResponseEntity.created(uri).body(new DetailsStockDto(stock));
     }
 

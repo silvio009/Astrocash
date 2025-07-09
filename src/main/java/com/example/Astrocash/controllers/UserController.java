@@ -6,6 +6,7 @@ import com.example.Astrocash.dto.RegisterUserDto;
 import com.example.Astrocash.dto.UpdateUsersDto;
 import com.example.Astrocash.models.users.User;
 import com.example.Astrocash.repository.UserRepository;
+import com.example.Astrocash.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,8 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping
@@ -43,8 +46,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<DetailsUsersDto> registerUser (@RequestBody @Valid RegisterUserDto registerUserDto, UriComponentsBuilder uriComponentsBuilder){
-        var user = new User(registerUserDto);
-        userRepository.save(user);
+        var user = userService.cadastrarUsuario(registerUserDto);
         var uri = uriComponentsBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailsUsersDto(user));
     }
