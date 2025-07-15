@@ -6,5 +6,10 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface PortfolioItemRepository extends MongoRepository<PortfolioItem,String> {
-    List<PortfolioItem> findByUserId(String userId);
+
+    boolean existsByUserId (String userid);
+
+    boolean existsByAtivoId (String ativoid);
+
+
 }
