@@ -19,7 +19,7 @@ public class Crypto {
 
     @Id
     private String id;
-    private Simbolo simbolo; // ex: BTC, ETH
+    private Simbolo simbolo;
     private String nome;
     private double precoAtual;
     private double variacaoPercentual;

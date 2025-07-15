@@ -1,10 +1,9 @@
 package com.example.Astrocash.controllers;
 
-import com.example.Astrocash.dto.DetailsUsersDto;
-import com.example.Astrocash.dto.ListingUsersDto;
-import com.example.Astrocash.dto.RegisterUserDto;
-import com.example.Astrocash.dto.UpdateUsersDto;
-import com.example.Astrocash.models.users.User;
+import com.example.Astrocash.dto.user.DetailsUsersDto;
+import com.example.Astrocash.dto.user.ListingUsersDto;
+import com.example.Astrocash.dto.user.RegisterUserDto;
+import com.example.Astrocash.dto.user.UpdateUsersDto;
 import com.example.Astrocash.repository.UserRepository;
 import com.example.Astrocash.service.UserService;
 import jakarta.validation.Valid;

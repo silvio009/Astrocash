@@ -3,8 +3,8 @@ package com.example.Astrocash.models.users;
 
 
 
-import com.example.Astrocash.dto.RegisterUserDto;
-import com.example.Astrocash.dto.UpdateUsersDto;
+import com.example.Astrocash.dto.user.RegisterUserDto;
+import com.example.Astrocash.dto.user.UpdateUsersDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

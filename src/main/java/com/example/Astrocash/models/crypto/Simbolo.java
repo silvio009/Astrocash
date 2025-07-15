@@ -10,24 +10,35 @@ import java.util.Objects;
 
 public class Simbolo {
 
-    private final String value;
+    private final SimboloEnum value;
 
     @JsonCreator
-    public Simbolo(String value) {
-        if (value == null || value.isBlank()) {
+    public Simbolo(String input) {
+        if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("Símbolo não pode ser nulo ou vazio.");
         }
-        this.value = value.toUpperCase();
+
+        String upper = input.trim().toUpperCase();
+
+        if (upper.length() > 3) {
+            throw new IllegalArgumentException("Símbolo deve ter no máximo 3 caracteres.");
+        }
+
+        try {
+            this.value = SimboloEnum.valueOf(upper);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Símbolo inválido: " + input + ". Valores válidos: BTC, ETH, ADA, DOT ...");
+        }
     }
 
     @JsonValue
     public String getValue() {
-        return value;
+        return value.name();
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.name();
     }
 
     @Override
@@ -35,13 +46,12 @@ public class Simbolo {
         if (this == o) return true;
         if (!(o instanceof Simbolo)) return false;
         Simbolo simbolo = (Simbolo) o;
-        return Objects.equals(value, simbolo.value);
+        return value == simbolo.value;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(value);
     }
-
-    // ARRUMAR O ESCAPSULAMENTO DO SIMBOLO COM UM ENUM E DEPOIS FAZER O SERVICE COM OS DADOS UNICOS E ETC
 }
+

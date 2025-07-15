@@ -1,6 +1,6 @@
 package com.example.Astrocash.service;
 
-import com.example.Astrocash.dto.RegisterUserDto;
+import com.example.Astrocash.dto.user.RegisterUserDto;
 import com.example.Astrocash.models.users.User;
 import com.example.Astrocash.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

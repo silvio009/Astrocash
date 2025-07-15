@@ -6,6 +6,7 @@ import com.example.Astrocash.dto.cryto.ListingCryptoDto;
 import com.example.Astrocash.dto.cryto.RegisterCryptoDto;
 import com.example.Astrocash.models.crypto.Crypto;
 import com.example.Astrocash.repository.CryptoRepository;
+import com.example.Astrocash.service.CryptoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,9 @@ public class CryptoController {
     @Autowired
     private CryptoRepository cryptoRepository;
 
+    @Autowired
+    private CryptoService cryptoService;
+
     @GetMapping
     public ResponseEntity<List<ListingCryptoDto>> ListingCrypto (Pageable pageable){
         var page = cryptoRepository.findAll(pageable).stream().map(ListingCryptoDto :: new).toList();
@@ -42,8 +46,8 @@ public class CryptoController {
     @PostMapping
     @Transactional
     public ResponseEntity<DetailsCryptoDto> RegisterCrypto (@RequestBody @Valid RegisterCryptoDto registerCryptoDto, UriComponentsBuilder uriComponentsBuilder){
-        var crypto = new Crypto(registerCryptoDto);
-        cryptoRepository.save(crypto);
+
+        var crypto = cryptoService.CadastrarCrypto(registerCryptoDto);
         var uri = uriComponentsBuilder.path("/crypto/{id}").buildAndExpand(crypto.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailsCryptoDto(crypto));
 
