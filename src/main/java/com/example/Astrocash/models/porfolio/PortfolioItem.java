@@ -1,4 +1,4 @@
-package com.example.Astrocash.models;
+package com.example.Astrocash.models.porfolio;
 
 
 import com.example.Astrocash.dto.portfolio.RegisterPortfolioDto;

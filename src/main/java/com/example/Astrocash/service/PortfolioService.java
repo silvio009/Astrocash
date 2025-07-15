@@ -1,7 +1,7 @@
 package com.example.Astrocash.service;
 
 import com.example.Astrocash.dto.portfolio.RegisterPortfolioDto;
-import com.example.Astrocash.models.PortfolioItem;
+import com.example.Astrocash.models.porfolio.PortfolioItem;
 import com.example.Astrocash.repository.PortfolioItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
