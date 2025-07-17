@@ -3,6 +3,7 @@ package com.example.Astrocash.models;
 
 import com.example.Astrocash.dto.transaction.RegisterTransactionDto;
 import com.example.Astrocash.dto.transaction.UpadateTransactionDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 
 @Setter
@@ -30,7 +32,8 @@ public class Transaction {
     private double quantidade;
     private double precoUnitario;
     private String tipoOperacao; // "COMPRA" ou "VENDA"
-    private Instant dataHora;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
+    private LocalDateTime dataHora;
 
     public Transaction(RegisterTransactionDto registerTransactionDto) {
         // Mudar apos colocar token JWT
@@ -41,7 +44,7 @@ public class Transaction {
         this.quantidade = registerTransactionDto.quantidade();
         this.precoUnitario = registerTransactionDto.precoUnitario();
         this.tipoOperacao = registerTransactionDto.tipoOperacao();
-        this.dataHora = Instant.now();
+        this.dataHora = LocalDateTime.now();
     }
 
 
@@ -62,5 +65,5 @@ public class Transaction {
             dataHora= upadateTransactionDto.dataHora();
         }
     }
-    // COLOCAR VALIDAÇÃO DE (COMPRA E VENDA MAIS O TIPO DE ATIVO) ARRUMAR O DATAHORA PRA VIR NO PADRÃO AMERICA DO SUL
+    // COLOCAR VALIDAÇÃO DE (COMPRA E VENDA MAIS O TIPO DE ATIVO)
 }
