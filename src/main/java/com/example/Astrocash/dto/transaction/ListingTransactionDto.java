@@ -1,11 +1,12 @@
 package com.example.Astrocash.dto.transaction;
 
-import com.example.Astrocash.models.Transaction;
+import com.example.Astrocash.models.transaction.TipoAtivo;
+import com.example.Astrocash.models.transaction.TipoOperacao;
+import com.example.Astrocash.models.transaction.Transaction;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
-public record ListingTransactionDto(String id, String userId, String ativoId, String tipoAtivo, Double quantidade, Double precoUnitario, String tipoOperacao, LocalDateTime dataHora) {
+public record ListingTransactionDto(String id, String userId, String ativoId, TipoAtivo tipoAtivo, Double quantidade, Double precoUnitario, TipoOperacao tipoOperacao, LocalDateTime dataHora) {
     public ListingTransactionDto(Transaction transaction){
         this(transaction.getId(), transaction.getUserId(), transaction.getAtivoId(),
                 transaction.getTipoAtivo(), transaction.getQuantidade(), transaction.getPrecoUnitario(),

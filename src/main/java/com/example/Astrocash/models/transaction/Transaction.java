@@ -1,4 +1,4 @@
-package com.example.Astrocash.models;
+package com.example.Astrocash.models.transaction;
 
 
 import com.example.Astrocash.dto.transaction.RegisterTransactionDto;
@@ -28,10 +28,10 @@ public class Transaction {
     private String userId;
     private String ativoId;
 
-    private String tipoAtivo; // "STOCK" ou "CRYPTO"
+    private TipoAtivo tipoAtivo; // "STOCK" ou "CRYPTO"
     private double quantidade;
     private double precoUnitario;
-    private String tipoOperacao; // "COMPRA" ou "VENDA"
+    private TipoOperacao tipoOperacao; // "COMPRA" ou "VENDA"
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private LocalDateTime dataHora;
 
@@ -65,5 +65,5 @@ public class Transaction {
             dataHora= upadateTransactionDto.dataHora();
         }
     }
-    // COLOCAR VALIDAÇÃO DE (COMPRA E VENDA MAIS O TIPO DE ATIVO)
+    // COLOCAR VALIDAÇÃO DE (MAIS O TIPO DE ATIVO)
 }

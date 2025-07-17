@@ -1,7 +1,7 @@
 package com.example.Astrocash.service;
 
 import com.example.Astrocash.dto.transaction.RegisterTransactionDto;
-import com.example.Astrocash.models.Transaction;
+import com.example.Astrocash.models.transaction.Transaction;
 import com.example.Astrocash.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +17,8 @@ public class TransactionService {
 
     public Transaction cadastrarTransaction(RegisterTransactionDto registerTransactionDto){
 
+
+
         if (transactionRepository.existsByUserId(registerTransactionDto.userId())){
             throw new ResponseStatusException(CONFLICT,"Já existe esse UserId no banco");
         }
@@ -26,4 +28,5 @@ public class TransactionService {
         Transaction transaction = new Transaction(registerTransactionDto);
         return transactionRepository.save(transaction);
     }
+
 }
