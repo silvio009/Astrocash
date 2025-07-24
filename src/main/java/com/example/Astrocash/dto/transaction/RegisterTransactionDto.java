@@ -10,8 +10,6 @@ import jakarta.validation.constraints.Pattern;
 import java.time.Instant;
 
 public record RegisterTransactionDto(
-        @NotBlank(message = "O ID do usuário é obrigatório")
-        String userId,
 
         @NotBlank(message = "O ID do ativo é obrigatório")
         String ativoId,

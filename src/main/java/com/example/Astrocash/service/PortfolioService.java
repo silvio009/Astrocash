@@ -15,16 +15,17 @@ public class PortfolioService {
     @Autowired
     PortfolioItemRepository portfolioItemRepository;
 
-    public PortfolioItem cadastrarPortfolio (RegisterPortfolioDto registerPortfolioDto){
+    public PortfolioItem cadastrarPortfolio(RegisterPortfolioDto registerPortfolioDto, String userId) {
 
-        if (portfolioItemRepository.existsByUserId(registerPortfolioDto.userId())){
-            throw new ResponseStatusException(CONFLICT,"Já existe esse UserId no banco");
+        if (portfolioItemRepository.existsByUserId(userId)) {
+            throw new ResponseStatusException(CONFLICT, "Já existe esse UserId no banco");
         }
-        if (portfolioItemRepository.existsByAtivoId(registerPortfolioDto.ativoId())){
-            throw new ResponseStatusException(CONFLICT,"Já existe esse ativoid no banco");
+
+        if (portfolioItemRepository.existsByAtivoId(registerPortfolioDto.ativoId())) {
+            throw new ResponseStatusException(CONFLICT, "Já existe esse ativoid no banco");
         }
-        PortfolioItem portfolioItem = new PortfolioItem(registerPortfolioDto);
+
+        PortfolioItem portfolioItem = new PortfolioItem(registerPortfolioDto, userId);
         return portfolioItemRepository.save(portfolioItem);
-
     }
 }

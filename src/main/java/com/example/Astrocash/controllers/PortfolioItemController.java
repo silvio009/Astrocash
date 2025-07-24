@@ -10,6 +10,7 @@ import com.example.Astrocash.dto.stock.RegisterStockDto;
 import com.example.Astrocash.dto.stock.UpadateStockDto;
 import com.example.Astrocash.repository.PortfolioItemRepository;
 import com.example.Astrocash.service.PortfolioService;
+import com.example.Astrocash.service.token.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,9 @@ public class PortfolioItemController {
     @Autowired
     private PortfolioService portfolioService;
 
+    @Autowired
+    private TokenService tokenService;
+
 
     @GetMapping
     public ResponseEntity<List<ListingPortfolioDto>> Listingportfolio (Pageable pageable){
@@ -51,9 +55,13 @@ public class PortfolioItemController {
     @Transactional
     public ResponseEntity<DetailsPortfolioDto> registerPortfolio(
             @RequestBody @Valid RegisterPortfolioDto registerPortfolioDto,
+            @RequestHeader("Authorization") String authorizationHeader,
             UriComponentsBuilder uriComponentsBuilder) {
 
-        var portfolio = portfolioService.cadastrarPortfolio(registerPortfolioDto);
+        String token = authorizationHeader.replace("Bearer ", "");
+        String userId = tokenService.getSubject(token);
+
+        var portfolio = portfolioService.cadastrarPortfolio(registerPortfolioDto, userId);
         var uri = uriComponentsBuilder.path("/portfolio/{id}").buildAndExpand(portfolio.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DetailsPortfolioDto(portfolio));

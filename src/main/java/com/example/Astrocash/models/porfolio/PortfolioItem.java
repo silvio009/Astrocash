@@ -28,9 +28,9 @@ public class PortfolioItem {
     private double quantidade;
     private double precoMedioCompra;
 
-    public PortfolioItem(RegisterPortfolioDto registerPortfolioDto) {
+    public PortfolioItem(RegisterPortfolioDto registerPortfolioDto,String userId) {
         // mudar com o token JWT
-        userId = registerPortfolioDto.userId();
+        this.userId = userId;
         ativoId = registerPortfolioDto.ativoId();
 
 

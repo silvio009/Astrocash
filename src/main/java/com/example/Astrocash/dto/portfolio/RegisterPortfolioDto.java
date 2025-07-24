@@ -7,9 +7,6 @@ import jakarta.validation.constraints.Pattern;
 
 public record RegisterPortfolioDto(
 
-        @NotBlank(message = "O ID do usuário é obrigatório")
-        String userId,
-
         @NotBlank(message = "O ID do ativo é obrigatório")
         String ativoId,
 

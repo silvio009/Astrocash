@@ -9,6 +9,7 @@ import com.example.Astrocash.dto.transaction.RegisterTransactionDto;
 import com.example.Astrocash.dto.transaction.UpadateTransactionDto;
 import com.example.Astrocash.repository.TransactionRepository;
 import com.example.Astrocash.service.TransactionService;
+import com.example.Astrocash.service.token.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,9 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private TokenService tokenService;
+
 
     @GetMapping
     public ResponseEntity<List<ListingTransactionDto>> Listingtransaction (Pageable pageable){
@@ -51,9 +55,13 @@ public class TransactionController {
     @Transactional
     public ResponseEntity<DetailsTransactionDto> registertransaction(
             @RequestBody @Valid RegisterTransactionDto registerTransactionDto,
+            @RequestHeader("Authorization") String authorizationHeader,
             UriComponentsBuilder uriComponentsBuilder) {
 
-        var transaction = transactionService.cadastrarTransaction(registerTransactionDto);
+        String token = authorizationHeader.replace("Bearer ", "");
+        String userId = tokenService.getSubject(token);
+
+        var transaction = transactionService.cadastrarTransaction(registerTransactionDto,userId);
         var uri = uriComponentsBuilder.path("/transaction/{id}").buildAndExpand(transaction.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DetailsTransactionDto(transaction));

@@ -35,9 +35,9 @@ public class Transaction {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private LocalDateTime dataHora;
 
-    public Transaction(RegisterTransactionDto registerTransactionDto) {
+    public Transaction(RegisterTransactionDto registerTransactionDto,String userId) {
         // Mudar apos colocar token JWT
-        this.userId = registerTransactionDto.userId();
+        this.userId = userId;
         this.ativoId = registerTransactionDto.ativoId();
 
         this.tipoAtivo = registerTransactionDto.tipoAtivo();

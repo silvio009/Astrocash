@@ -15,17 +15,17 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-    public Transaction cadastrarTransaction(RegisterTransactionDto registerTransactionDto){
+    public Transaction cadastrarTransaction(RegisterTransactionDto registerTransactionDto,String userId){
 
 
 
-        if (transactionRepository.existsByUserId(registerTransactionDto.userId())){
+        if (transactionRepository.existsByUserId(userId)){
             throw new ResponseStatusException(CONFLICT,"Já existe esse UserId no banco");
         }
         if (transactionRepository.existsByAtivoId(registerTransactionDto.ativoId())){
             throw new ResponseStatusException(CONFLICT,"Já existe esse ativoid no banco");
         }
-        Transaction transaction = new Transaction(registerTransactionDto);
+        Transaction transaction = new Transaction(registerTransactionDto,userId);
         return transactionRepository.save(transaction);
     }
 
