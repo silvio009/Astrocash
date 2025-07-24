@@ -8,6 +8,11 @@ import com.example.Astrocash.dto.user.UpdateUsersDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Collections;
 
 @Setter
 @Getter
@@ -15,9 +20,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document(collection = "users")
 @ToString
-public class User {
+public class User implements UserDetails {
 
-    // como estou usando MongoDB o id pode ser um String
 
     @Id
     private String id;
@@ -56,5 +60,39 @@ public class User {
 
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(() -> "ROLE_" + role.toUpperCase());
+    }
+
+    @Override
+    public String getPassword() {
+        return senha.getValue();
+    }
+
+    @Override
+    public String getUsername() {
+        return email.getValue();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
 }
 

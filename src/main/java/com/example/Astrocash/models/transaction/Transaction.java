@@ -65,5 +65,4 @@ public class Transaction {
             dataHora= upadateTransactionDto.dataHora();
         }
     }
-    // COLOCAR VALIDAÇÃO DE (MAIS O TIPO DE ATIVO)
 }
