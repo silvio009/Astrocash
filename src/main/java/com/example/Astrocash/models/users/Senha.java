@@ -16,7 +16,7 @@ public class Senha {
         if (value == null || value.length() < 6) {
             throw new IllegalArgumentException("A senha deve ter no mínimo 6 caracteres.");
         }
-        this.value = value; // aplicar hashing futuramente
+        this.value = value;
     }
     @JsonValue
     public String getValue() {
