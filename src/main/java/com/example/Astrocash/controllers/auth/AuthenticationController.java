@@ -48,7 +48,13 @@ public class AuthenticationController {
             Authentication auth = authenticationManager.authenticate(token);
             String jwt = tokenService.gerarToken((User) auth.getPrincipal());
 
-            return ResponseEntity.ok(new LoginResponseDto(jwt));
+            return ResponseEntity.ok(new LoginResponseDto(jwt,
+                    user.getId(),
+                    user.getNome(),
+                    user.getEmail(),
+                    user.getCpf(),
+                    user.getDataCadastro()
+            ));
 
         } catch (Exception e) {
             System.out.println("Falha no login: " + e.getMessage());

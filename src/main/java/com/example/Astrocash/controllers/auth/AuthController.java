@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +42,10 @@ public class AuthController {
             user.setNome(dto.nome());
             user.setEmail(dto.email());
             user.setSenha(new Senha(senhaCriptografada));
+            user.setCpf(dto.cpf());
+            user.setDataCadastro(new Date());
             user.setRole(dto.role());
+
 
             userRepository.save(user);
 

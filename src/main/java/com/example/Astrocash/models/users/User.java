@@ -11,8 +11,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -32,6 +34,11 @@ public class User implements UserDetails {
 
     private Senha senha;
 
+    private String cpf;
+
+    private Date dataCadastro;
+
+
     private String role = "USER";
 
     public User(RegisterUserDto registerUserDto) {
@@ -39,6 +46,8 @@ public class User implements UserDetails {
         email = registerUserDto.email();
         senha = registerUserDto.senha();
         role = registerUserDto.role();
+        cpf = registerUserDto.cpf();
+        dataCadastro = new Date();
     }
 
     public void UpdateDataUser (UpdateUsersDto updateUsersDto){
@@ -56,6 +65,9 @@ public class User implements UserDetails {
         }
         if (updateUsersDto.role() != null){
             role = updateUsersDto.role();
+        }
+        if (updateUsersDto.cpf()!= null){
+            cpf = updateUsersDto.cpf();
         }
 
     }
