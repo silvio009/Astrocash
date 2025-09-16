@@ -44,6 +44,7 @@ public class AuthController {
             user.setSenha(new Senha(senhaCriptografada));
             user.setCpf(dto.cpf());
             user.setDataCadastro(new Date());
+            user.setTelefone(dto.telefone());
             user.setRole(dto.role());
 
 

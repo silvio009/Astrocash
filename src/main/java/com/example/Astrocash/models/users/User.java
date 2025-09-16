@@ -38,6 +38,7 @@ public class User implements UserDetails {
 
     private Date dataCadastro;
 
+    private String telefone;
 
     private String role = "USER";
 
@@ -48,6 +49,7 @@ public class User implements UserDetails {
         role = registerUserDto.role();
         cpf = registerUserDto.cpf();
         dataCadastro = new Date();
+        telefone = registerUserDto.telefone();
     }
 
     public void UpdateDataUser (UpdateUsersDto updateUsersDto){
@@ -68,6 +70,9 @@ public class User implements UserDetails {
         }
         if (updateUsersDto.cpf()!= null){
             cpf = updateUsersDto.cpf();
+        }
+        if (updateUsersDto.telefone() != null){
+            telefone = updateUsersDto.telefone();
         }
 
     }

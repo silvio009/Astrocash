@@ -53,7 +53,8 @@ public class AuthenticationController {
                     user.getNome(),
                     user.getEmail(),
                     user.getCpf(),
-                    user.getDataCadastro()
+                    user.getDataCadastro(),
+                    user.getTelefone()
             ));
 
         } catch (Exception e) {

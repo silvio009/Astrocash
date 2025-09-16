@@ -8,16 +8,20 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record RegisterUserDto(
-         @NotBlank(message = "O nome é obrigatorio para o registro")
+         @NotBlank(message = "O nome é obrigatório para o registro")
          @NotNull
          String nome,
-         @NotNull(message = "O E-mail é obrigatorio para o registro")
+         @NotNull(message = "O E-mail é obrigatório para o registro")
          Email email,
-         @NotNull(message = "A senha é obrigatoria para o registro")
+         @NotNull(message = "A senha é obrigatório para o registro")
          Senha senha,
 
-         @NotNull(message = "O cpf é obrigatorio para o registro")
+         @NotNull(message = "O cpf é obrigatório para o registro")
          String cpf,
+
+         @NotNull(message = "O telefone é obrigatório para o registro")
+         String telefone,
+
          String role) {
 
 }
