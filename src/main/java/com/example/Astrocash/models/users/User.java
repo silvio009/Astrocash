@@ -40,6 +40,8 @@ public class User implements UserDetails {
 
     private String telefone;
 
+    private Endereco endereco;
+
     private String role = "USER";
 
     public User(RegisterUserDto registerUserDto) {
@@ -50,6 +52,7 @@ public class User implements UserDetails {
         cpf = registerUserDto.cpf();
         dataCadastro = new Date();
         telefone = registerUserDto.telefone();
+        endereco = null;
     }
 
     public void UpdateDataUser (UpdateUsersDto updateUsersDto){
@@ -73,6 +76,9 @@ public class User implements UserDetails {
         }
         if (updateUsersDto.telefone() != null){
             telefone = updateUsersDto.telefone();
+        }
+        if (updateUsersDto.endereco() != null){
+            endereco = updateUsersDto.endereco();
         }
 
     }

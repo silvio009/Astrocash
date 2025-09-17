@@ -1,6 +1,7 @@
 package com.example.Astrocash.dto.user;
 
 import com.example.Astrocash.models.users.Email;
+import com.example.Astrocash.models.users.Endereco;
 import com.example.Astrocash.models.users.Senha;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +22,8 @@ public record RegisterUserDto(
 
          @NotNull(message = "O telefone é obrigatório para o registro")
          String telefone,
+
+         Endereco endereco,
 
          String role) {
 

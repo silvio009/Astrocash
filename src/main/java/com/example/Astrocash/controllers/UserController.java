@@ -1,9 +1,6 @@
 package com.example.Astrocash.controllers;
 
-import com.example.Astrocash.dto.user.DetailsUsersDto;
-import com.example.Astrocash.dto.user.ListingUsersDto;
-import com.example.Astrocash.dto.user.RegisterUserDto;
-import com.example.Astrocash.dto.user.UpdateUsersDto;
+import com.example.Astrocash.dto.user.*;
 import com.example.Astrocash.repository.UserRepository;
 import com.example.Astrocash.service.UserService;
 import jakarta.validation.Valid;
@@ -65,6 +62,23 @@ public class UserController {
     public ResponseEntity<Void> deleteUser (@PathVariable("id")String id){
         userRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    // Endereço do usuário
+
+    @PutMapping("{id}/endereco")
+    public ResponseEntity<DetailsUsersDto> updateEndereco(
+            @PathVariable("id") String id,
+            @RequestBody EnderecoDto enderecoDto
+    ) {
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+
+        user.setEndereco(enderecoDto.toEndereco());
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new DetailsUsersDto(user));
     }
 
 
