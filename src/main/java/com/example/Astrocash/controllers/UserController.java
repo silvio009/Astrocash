@@ -1,6 +1,7 @@
 package com.example.Astrocash.controllers;
 
 import com.example.Astrocash.dto.user.*;
+import com.example.Astrocash.models.users.User;
 import com.example.Astrocash.repository.UserRepository;
 import com.example.Astrocash.service.UserService;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -79,6 +81,17 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new DetailsUsersDto(user));
+    }
+
+    // Foto usuário
+
+    @PatchMapping("/foto")
+    public ResponseEntity<User> atualizarFotoPerfil(
+            @AuthenticationPrincipal User userLogado,
+            @RequestBody UpdateUserPhotoDto dto) {
+
+        User userAtualizado = userService.atualizarFotoPerfil(userLogado.getId(), dto);
+        return ResponseEntity.ok(userAtualizado);
     }
 
 

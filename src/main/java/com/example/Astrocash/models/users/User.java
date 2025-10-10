@@ -42,7 +42,13 @@ public class User implements UserDetails {
 
     private Endereco endereco;
 
+    private String fotoPerfil;
+
     private String role = "USER";
+
+    public void updateFotoPerfil(String novaFotoPerfil) {
+        this.fotoPerfil = novaFotoPerfil;
+    }
 
     public User(RegisterUserDto registerUserDto) {
         nome = registerUserDto.nome();

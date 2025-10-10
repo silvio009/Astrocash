@@ -1,6 +1,7 @@
 package com.example.Astrocash.service;
 
 import com.example.Astrocash.dto.user.RegisterUserDto;
+import com.example.Astrocash.dto.user.UpdateUserPhotoDto;
 import com.example.Astrocash.models.users.User;
 import com.example.Astrocash.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,16 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Já existe um usuário com este e-mail.");
         }
         return userRepository.save(new User(registerUserDto));
+    }
+
+    public User atualizarFotoPerfil(String userId, UpdateUserPhotoDto dto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        // Atualizar campo de foto
+        user.updateFotoPerfil(dto.fotoPerfil());
+
+        // Salvar no banco
+        return userRepository.save(user);
     }
 }

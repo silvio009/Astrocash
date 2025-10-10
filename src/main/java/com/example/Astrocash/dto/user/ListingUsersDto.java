@@ -7,8 +7,8 @@ import com.example.Astrocash.models.users.User;
 
 import java.util.Date;
 
-public record ListingUsersDto(String id, String nome, Email email, Senha senha, String role, String cpf, Date dataCadastro, String telefone, Endereco endereco) {
+public record ListingUsersDto(String id, String nome, Email email, Senha senha, String role, String cpf, Date dataCadastro, String telefone, Endereco endereco, String fotoPerfil) {
     public ListingUsersDto(User user){
-        this(user.getId(), user.getNome(),user.getEmail(), user.getSenha(), user.getRole(), user.getCpf(),user.getDataCadastro(),user.getTelefone(),user.getEndereco());
+        this(user.getId(), user.getNome(),user.getEmail(), user.getSenha(), user.getRole(), user.getCpf(),user.getDataCadastro(),user.getTelefone(),user.getEndereco(), user.getFotoPerfil());
     }
 }
