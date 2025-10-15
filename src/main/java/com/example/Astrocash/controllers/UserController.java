@@ -1,6 +1,8 @@
 package com.example.Astrocash.controllers;
 
+import com.example.Astrocash.dto.ChangePasswordDto;
 import com.example.Astrocash.dto.user.*;
+import com.example.Astrocash.models.users.Senha;
 import com.example.Astrocash.models.users.User;
 import com.example.Astrocash.repository.UserRepository;
 import com.example.Astrocash.service.UserService;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,6 +29,9 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
 
     @GetMapping
@@ -66,9 +72,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-
     // Endereço do usuário
-
     @PutMapping("{id}/endereco")
     public ResponseEntity<DetailsUsersDto> updateEndereco(
             @PathVariable("id") String id,
@@ -84,7 +88,6 @@ public class UserController {
     }
 
     // Foto usuário
-
     @PatchMapping("/foto")
     public ResponseEntity<User> atualizarFotoPerfil(
             @AuthenticationPrincipal User userLogado,
@@ -94,6 +97,28 @@ public class UserController {
         return ResponseEntity.ok(userAtualizado);
     }
 
+    @PutMapping("/alterar-senha")
+    public ResponseEntity<String> alterarSenha(
+            @AuthenticationPrincipal User userLogado,
+            @RequestBody ChangePasswordDto dto
+    ) {
+        if (userLogado == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuário não autenticado");
+        }
+        if (!passwordEncoder.matches(dto.senhaAtual(), userLogado.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Senha atual incorreta");
+        }
+        if (passwordEncoder.matches(dto.novaSenha(), userLogado.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A nova senha deve ser diferente da atual");
+        }
+        if (!dto.novaSenha().equals(dto.confirmarSenha())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "As senhas não coincidem");
+        }
+        userLogado.setSenha(new Senha(passwordEncoder.encode(dto.novaSenha())));
+        userRepository.save(userLogado);
+
+        return ResponseEntity.ok("Senha alterada com sucesso");
+    }
 
 
 }

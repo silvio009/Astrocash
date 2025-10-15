@@ -26,4 +26,8 @@ public class Senha {
     public String toString() {
         return value;
     }
+
+    public String getValor() {
+        return value;
+    }
 }
